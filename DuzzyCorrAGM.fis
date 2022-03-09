@@ -1,0 +1,73 @@
+[System]
+Name='DuzzyCorrAGM'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=3
+NumRules=16
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='X-erro'
+Range=[-0.5 0.5]
+NumMFs=5
+MF1='LOW_N':'pimf',[-0.2 -0.1 -0.08 0]
+MF2='BIG_N':'pimf',[-0.5 -0.5 -0.15 -0.05]
+MF3='ZER':'pimf',[-0.05 0 0 0.05]
+MF4='LOW_P':'pimf',[0 0.08 0.1 0.2]
+MF5='BIG_P':'pimf',[0.05 0.15 0.5 0.5]
+
+[Input2]
+Name='X-erro-D'
+Range=[0 1]
+NumMFs=4
+MF1='Zero':'sigmf',[-13.5 0.058]
+MF2='MED':'pimf',[0.0479 0.236 0.403 0.61144578313253]
+MF3='BIG':'sigmf',[35.2996270570179 0.501]
+MF4='Low':'gaussmf',[0.0375 0.099444578313253]
+
+[Output1]
+Name='Delta-P'
+Range=[-0.3 0.3]
+NumMFs=3
+MF1='Low':'trapmf',[-0.300792602377807 -0.300792602377807 -0.150792602377807 -0.000792602377807095]
+MF2='Med':'gbellmf',[0.11 -0.11 -0.0042536327608983]
+MF3='Big':'trapmf',[0 0.15 0.3 0.3]
+
+[Output2]
+Name='Delta-I'
+Range=[-0.05 0.2]
+NumMFs=3
+MF1='Low':'trapmf',[-0.05 -0.05 0.01247 0.075]
+MF2='Med':'trimf',[0.01247 0.075 0.1375]
+MF3='Big':'trapmf',[0.075 0.1375 0.2 0.2]
+
+[Output3]
+Name='Delta-D'
+Range=[-0.05 0.4]
+NumMFs=3
+MF1='Low':'trapmf',[-0.05 -0.05 0.0625 0.175]
+MF2='Med':'trimf',[0.0625 0.175 0.2875]
+MF3='Big':'trapmf',[0.175 0.2875 0.4 0.4]
+
+[Rules]
+3 1, 2 1 3 (1) : 1
+2 4, 3 3 1 (1) : 1
+1 4, 2 2 2 (1) : 1
+3 4, 1 1 3 (1) : 1
+4 4, 2 2 2 (1) : 1
+5 4, 3 3 1 (1) : 1
+2 2, 2 2 1 (1) : 1
+1 2, 2 1 3 (1) : 1
+3 2, 1 2 2 (1) : 1
+4 2, 2 1 3 (1) : 1
+5 2, 2 2 1 (1) : 1
+2 3, 3 3 1 (1) : 1
+1 3, 2 1 3 (1) : 1
+3 3, 3 3 1 (1) : 1
+4 3, 2 1 3 (1) : 1
+5 3, 3 3 1 (1) : 1
